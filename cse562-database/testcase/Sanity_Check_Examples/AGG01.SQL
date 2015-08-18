@@ -1,0 +1,3 @@
+CREATE TABLE R (A int, B int);
+
+SELECT SUM(A+B) FROM R;

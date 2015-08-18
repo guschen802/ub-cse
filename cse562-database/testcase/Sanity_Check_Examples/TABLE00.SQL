@@ -1,0 +1,3 @@
+CREATE TABLE R (A int, B int);
+
+SELECT SUM(A),AVG(A),COUNT(A) FROM R;
