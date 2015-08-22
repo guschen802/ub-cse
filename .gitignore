@@ -2,3 +2,8 @@
 **/.idea
 **/out
 cse562-database/testcase/db/*
+**/.DS_Store
+**/app/build/*
+**/build/intermediates/gradle_project_sync_data.bin
+**/local.properties
+**/.gradle
