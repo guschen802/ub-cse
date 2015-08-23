@@ -1,0 +1,329 @@
+--------------
+Test Case 1
+
+int i;
+i = 0;
+end
+
+0: iconst_0
+1: istore_0
+2: return
+
+---------------
+
+Test Case 2 - literal constants
+
+int i, j, k;
+i = 5;
+j = 127;
+k = 128;
+end
+
+0: iconst_5
+1: istore_0
+2: bipush 127
+4: istore_1
+5: sipush 128
+8: istore_2
+9: return
+
+----------------
+
+Test Case 3 - expressions
+
+int x, y, z;
+x = 111;
+y = ((x + 1) * (x - 1)) / x;
+z = x + y - 1111;
+end
+
+0: bipush 111
+2: istore_0
+3: iload_0
+4: iconst_1
+5: iadd
+6: iload_0
+7: iconst_1
+8: isub
+9: imul
+10: iload_0
+11: idiv
+12: istore_1
+13: iload_0
+14: iload_1
+15: sipush 1111
+18: isub
+19: iadd
+20: istore_2
+21: return
+
+-------------
+
+Test Case 4 - if statement
+
+int x, y;
+if (x > y) 
+   {x = x - y;}
+end
+
+0: iload_0
+1: iload_1
+2: if_icmple 9
+5: iload_0
+6: iload_1
+7: isub
+8: istore_0
+9: return
+
+---------------
+
+Test Case 5 - if-else statement
+
+int x, y;
+if (x > y) 
+   {x = x - y;}
+else 
+   {y = y - x;}
+end
+
+0: iload_0
+1: iload_1
+2: if_icmple 12
+5: iload_0
+6: iload_1
+7: isub
+8: istore_0
+9: goto 16
+12: iload_1
+13: iload_0
+14: isub
+15: istore_1
+16: return
+
+-----------------
+
+Test Case 6 - Nested if statement (max3)
+
+int i, j, k, m;
+i = 1;
+j = 111;
+k = 11111;
+if (i < j) {
+   if (j < k) {
+      m = k;
+   } else {m = j;}
+} else {
+   if (i < k) {
+      m = k;
+   } else {m = i;}
+}
+end
+
+0: iconst_1
+1: istore_0
+2: bipush 111
+4: istore_1
+5: sipush 11111
+8: istore_2
+9: iload_0
+10: iload_1
+11: if_icmpge 29
+14: iload_1
+15: iload_2
+16: if_icmpge 24
+19: iload_2
+20: istore_3
+21: goto 26
+24: iload_1
+25: istore_3
+
+26: goto 41
+29: iload_0
+30: iload_2
+31: if_icmpge 39
+34: iload_2
+35: istore_3
+36: goto 41
+39: iload_0
+40: istore_3
+
+41: return
+
+-------------------
+
+Test Case 7 - while statement (log_2)
+
+int i, n;
+n = 32;
+i = 0;
+while (n > 1) {
+	 n = n / 2;
+	 i = i + 1;
+}
+end
+
+0: bipush 32
+2: istore_1
+3: iconst_0
+4: istore_0
+5: iload_1
+6: iconst_1
+7: if_icmple 21
+10: iload_1
+11: iconst_2
+12: idiv
+13: istore_1
+14: iload_0
+15: iconst_1
+16: iadd
+17: istore_0
+18: goto 5
+21: return
+
+-------------------
+
+Test Case 8 - nested while statement
+
+int i, j, n;
+n = 32;
+i = 0;
+while (n > 1) {
+	 j = 0;
+      while (j < n) {
+		n = n - 2;
+		j = j + 2;
+      }
+	 i = i + 1;
+}
+end
+
+0: bipush 32
+2: istore_2
+3: iconst_0
+4: istore_0
+5: iload_2
+6: iconst_1
+7: if_icmple 35
+10: iconst_0
+11: istore_1
+12: iload_1
+13: iload_2
+14: if_icmpge 28
+17: iload_2
+18: iconst_2
+19: isub
+20: istore_2
+21: iload_1
+22: iconst_2
+23: iadd
+24: istore_1
+25: goto 12
+28: iload_0
+29: iconst_1
+30: iadd
+31: istore_0
+32: goto 5
+35: return
+
+
+----------------
+
+Test Case 9 - combined while and if (GCD)
+
+int x, y;
+x = 121;
+y = 132;
+while (x != y) {
+  if (x > y) 
+       { x = x - y; }
+  else { y = y - x; }
+}
+end
+
+0: bipush 121
+2: istore_0
+3: sipush 132
+6: istore_1
+7: iload_0
+8: iload_1
+9: if_icmpeq 31
+12: iload_0
+13: iload_1
+14: if_icmple 24
+17: iload_0
+18: iload_1
+19: isub
+20: istore_0
+21: goto 28
+24: iload_1
+25: iload_0
+26: isub
+27: istore_1
+28: goto 7
+31: return
+
+
+--------------------
+
+Test Case 10 - prime number testing
+
+int n, s, i, p;
+n = 61;
+s = 1;
+while (s*s < n) {
+      s = s + 1;
+}
+i = 2;
+p = 1;
+while (i < s+1) {
+      if (p = 1) {
+		if ( (n/i)*i = n)
+			{ p = 0;} 
+	 }
+	 i = i + 1;
+}
+end
+
+0: bipush 61
+2: istore_0
+3: iconst_1
+4: istore_1
+5: iload_1
+6: iload_1
+7: imul
+8: iload_0
+9: if_icmpge 19
+12: iload_1
+13: iconst_1
+14: iadd
+15: istore_1
+16: goto 5
+19: iconst_2
+20: istore_2
+21: iconst_1
+22: istore_3
+23: iload_2
+24: iload_1
+25: iconst_1
+26: iadd
+27: if_icmpge 53
+30: iload_3
+31: iconst_1
+32: if_icmpne 46
+35: iload_0
+36: iload_2
+37: idiv
+38: iload_2
+39: imul
+40: iload_0
+41: if_icmpne 46
+44: iconst_0
+45: istore_3
+46: iload_2
+47: iconst_1
+48: iadd
+49: istore_2
+50: goto 23
+53: return
+
+--------------------- End of Test Cases --------------
