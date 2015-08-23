@@ -406,13 +406,13 @@ class Code {
 			break;
 			
 		case Token.LESSER_OP:
-			jbcList.add("if_icmple ");
+			jbcList.add("if_icmpge ");
 			jbcList.add("");
 			jbcList.add("");
 			break;
 			
 		case Token.GREATER_OP:
-			jbcList.add("if_icmpge ");
+			jbcList.add("if_icmple ");
 			jbcList.add("");
 			jbcList.add("");
 			break;
