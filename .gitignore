@@ -7,3 +7,4 @@ cse562-database/testcase/db/*
 **/build/intermediates/gradle_project_sync_data.bin
 **/local.properties
 **/.gradle
+**/*.iml
